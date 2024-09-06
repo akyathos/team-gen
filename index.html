@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sorteio de Times</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+  <h1>Studio 2B</h1>
+  <label for="players">Digite os nomes dos jogadores separados por vírgula:</label>
+  <br>
+  <textarea id="players"></textarea>
+  <br>
+  <button onclick="sortTeams()">Sortear Times</button>
+  <div id="teams"></div>
+
+  <script>
+    function sortTeams() {
+      // Obter a lista de jogadores
+      const playerList = document.getElementById("players").value.split("\n").map(name => name.trim());
+
+      // Verificar se a quantidade de jogadores é par ou ímpar
+      // if (playerList.length % 2 !== 0) {
+      //   document.getElementById("teams").innerHTML = "Número ímpar de jogadores. Um jogador ficará de fora.";
+      //   return;
+      // }
+
+      // Embaralhar a lista de jogadores
+      const shuffledPlayers = shuffleArray(playerList);
+
+      // Dividir os jogadores em dois times
+      const team1 = shuffledPlayers.slice(0, shuffledPlayers.length / 2);
+      const team2 = shuffledPlayers.slice(shuffledPlayers.length / 2);
+
+      // Exibir os times
+      document.getElementById("teams").innerHTML = `
+        <h2>Time 1:</h2>
+        <p>${team1.join(", ")}</p>
+        <h2>Time 2:</h2>
+        <p>${team2.join(", ")}</p>
+      `;
+    }
+
+    function shuffle(array) {
+        let currentIndex = array.length;
+
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+
+            // Pick a remaining element...
+            let randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+
+    // Used like so
+    // let arr = [2, 11, 37, 42];
+    // shuffle(arr);
+    // console.log(arr);
+
+
+    // Função para embaralhar um array
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+  </script>
+</body>
+</html>
